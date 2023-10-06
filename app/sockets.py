@@ -32,9 +32,14 @@ def handle_mqtt_message(client, userdata, message):
         payload=message.payload.decode()
     )
     with app.app_context():
+        #ignore first welcoming statment
+        if message.payload.decode() == '{"1":"Hello world","2":"Welcome to the test connection"}':
+            return
         db.session.add(AggregatedData(topic = message.topic, value = message.payload.decode()))
         db.session.commit()
     socketio.emit('mqtt_message', data=data)
+    
+
 
 @mqtt.on_log()
 def handle_logging(client, userdata, level, buf):
