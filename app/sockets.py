@@ -35,6 +35,8 @@ def handle_mqtt_message(client, userdata, message):
         #ignore first welcoming statment
         if message.payload.decode() == '{"1":"Hello world","2":"Welcome to the test connection"}':
             return
+        #ignore data values that don't stray too much from last ones
+        
         db.session.add(AggregatedData(topic = message.topic, value = message.payload.decode()))
         db.session.commit()
     socketio.emit('mqtt_message', data=data)
