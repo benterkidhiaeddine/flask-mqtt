@@ -6,6 +6,8 @@ from flask_socketio import SocketIO
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_jwt_extended import JWTManager
+
 from settings import Config
 eventlet.monkey_patch()
 
@@ -20,6 +22,8 @@ mqtt = Mqtt(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app,db)
 socketio = SocketIO(app, cors_allowed_origins="*")
+jwt = JWTManager(app)
+
 
 
 from . import views, models, sockets
