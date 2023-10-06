@@ -10,7 +10,7 @@ from . import app, db
 from .models import AggregatedData
 
 @app.route("/uav/<id>")
-@jwt_required()
+@jwt_required
 def get_uav1(id):
     response = {}
 
@@ -36,3 +36,10 @@ def login():
 
     access_token = create_access_token(identity=username)
     return jsonify(access_token=access_token)   
+
+@app.route("/fire_notification",methods = ["POST"])
+def fire_notification():
+    #Do some logic 
+    
+    #send notification to react app
+    return "notification recieved"

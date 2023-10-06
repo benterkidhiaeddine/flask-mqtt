@@ -7,19 +7,19 @@ from .models import AggregatedData
 def handle_connect(client, userdata, flags, rc):
     mqtt.subscribe('#')
 
-
+#socket connection to add topics to the mqtt broker
 @socketio.on('publish')
 def handle_publish(json_str):
     data = json.loads(json_str)
     mqtt.publish(data['topic'], data['message'])
 
-
+#socket to handle if a client wants to subscribe to new topics
 @socketio.on('subscribe')
 def handle_subscribe(json_str):
     data = json.loads(json_str)
     mqtt.subscribe(data['topic'])
 
-
+#socket that handle when the client want the server to unsubscribe from all topics
 @socketio.on('unsubscribe_all')
 def handle_unsubscribe_all():
     mqtt.unsubscribe_all()
@@ -46,3 +46,10 @@ def handle_mqtt_message(client, userdata, message):
 @mqtt.on_log()
 def handle_logging(client, userdata, level, buf):
     print(level, buf)
+
+
+#Define a route where the android can send a wardning to when there is fire
+@app.route("/listen_to_android", methods = ["POST"])
+def listen_to_android():
+    socketio.emit("fire_event",{'lattitude': 90, "longitude": 80})
+    return {"msg" : "message sucessful"}
