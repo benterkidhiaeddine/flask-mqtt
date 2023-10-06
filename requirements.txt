@@ -4,3 +4,5 @@ flask_socketio
 eventlet
 flask-cors
 flask_sqlalchemy
+flask_migrate
+python-dotenv
