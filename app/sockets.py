@@ -1,5 +1,7 @@
 import json
-from . import mqtt,socketio
+from . import app
+from . import mqtt,socketio,db
+from .models import AggregatedData
 #subscripe to all topics
 @mqtt.on_connect()
 def handle_connect(client, userdata, flags, rc):
@@ -29,6 +31,9 @@ def handle_mqtt_message(client, userdata, message):
         topic=message.topic,
         payload=message.payload.decode()
     )
+    with app.app_context():
+        db.session.add(AggregatedData(topic = message.topic, value = message.payload.decode()))
+        db.session.commit()
     socketio.emit('mqtt_message', data=data)
 
 @mqtt.on_log()
