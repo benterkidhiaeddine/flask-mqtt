@@ -4,10 +4,10 @@ Installation steps:
 ```
 python -m venv venv
 venv\Scripts\activate
-pip install -r requiremnts.txt
-python app.py
+pip install -r requirements.txt
 flask db migrate
 flask upgrade
+python app.py
 ```
 schema returned by route "/uav/id" where id can 1 or 2  for different uavs:
 ```
