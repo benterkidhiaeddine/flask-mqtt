@@ -19,19 +19,23 @@ venv\Scripts\activate
 ```
 source venv/bin/activate
 ```
-3. Do migrations for the database using the following command : make sure your .flaskenv is present and FLASK_APP points to the file containing your flask app
+4. install dependencies 
+```
+pip install -r requirements.txt
+```
+5. Do migrations for the database using the following command : make sure your .flaskenv is present and FLASK_APP points to the file containing your flask app
 ```
 flask db migrate
 ```
-4. Apply the migrations in the database 
+6. Apply the migrations in the database 
 ```
 flask upgrade
 ```
-4. Launch the app with the developement server : it will be exposed on localhost:5000
+7. Launch the app with the developement server : it will be exposed on localhost:5000
 ```
 python app.py
 ```
-5. The schema of the data returned by the routes:
+8. The schema of the data returned by the routes:
 
 - schema returned by route "/uav/id" where id can 1 or 2  for different uavs:
 ```
